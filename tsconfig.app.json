@@ -3,16 +3,12 @@
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    // "allowImportingTsExtensions": true,
+    "jsx": "react-jsx",                 
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "useDefineForClassFields": true,
-    "isolatedModules": true,
-    "types": ["vite/client"]
+    "baseUrl": "src",                  
+    "paths": { "@/*": ["./*"] },
+    "types": ["vite/client"],
+    "verbatimModuleSyntax": true
   },
   "include": ["src"]
 }
