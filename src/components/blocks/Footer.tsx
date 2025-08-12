@@ -1,53 +1,49 @@
 import { NavLink } from "react-router-dom";
 import { ContainerInner, ContainerOuter } from "@/components/ui/Container";
-import CreativeCommonsLogo  from "@/assets/images/logos/ccheart_red.svg";
+import CCInfoPopover from "@/components/ui/CCInfoPopover";
+import CreativeCommonsLogo from "@/assets/images/logos/ccheart_red.svg";
 
-function NavItem({
-  to,
-  children,
-}: {
-  to: string;
-  children: React.ReactNode;
-}) {
+function NavItem({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <NavLink
       to={to}
-      className="transition hover:text-teal-500 dark:hover:text-teal-400"
+      className="text-sm font-medium text-zinc-600 transition hover:text-teal-500 dark:text-zinc-300 dark:hover:text-teal-400"
     >
       {children}
     </NavLink>
   );
 }
 
-
 export default function Footer() {
   return (
-    <footer className="mt-32 flex-none">
+    <footer className="border-t border-zinc-100 dark:border-zinc-800 mt-24">
       <ContainerOuter>
-        <div className="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40">
-          <ContainerInner>
-            <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-              <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                <NavItem to="/about">About</NavItem>
-                <NavItem to="/articles">Article</NavItem>
-                <NavItem to="/projects">Projects</NavItem>
-                <NavItem to="/uses">Uses</NavItem>
-              </div>
+        <ContainerInner>
+          <div className="py-8 flex flex-col-reverse items-center gap-6 sm:flex-row sm:justify-between">
+            <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+              <NavItem to="/about">About</NavItem>
+              <NavItem to="/articles">Articles</NavItem>
+              <NavItem to="/projects">Projects</NavItem>
+              <NavItem to="/uses">Uses</NavItem>
+            </nav>
 
-              <p className="flex items-center gap-2 text-sm text-zinc-400 dark:text-zinc-500">
-                <img
-                  src={CreativeCommonsLogo}
-                  alt="Creative Commons Logo"
-                  className="w-5 h-5 object-contain"
-                  loading="lazy"
-                />                <span>
-                  {new Date().getFullYear()} Krishna — Thanks to Tailwind UI for
-                  Template
-                </span>
-              </p>
+            <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <CCInfoPopover logoSrc={CreativeCommonsLogo} size={20} />
+              <span>
+                {new Date().getFullYear()} Krishna — Thanks to{" "}
+                <a
+                  href="https://tailwindcss.com/plus/templates/spotlight/preview"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline hover:text-teal-500 dark:hover:text-teal-400"
+                >
+                  Tailwind UI Spotlight
+                </a>{" "}
+                for template
+              </span>
             </div>
-          </ContainerInner>
-        </div>
+          </div>
+        </ContainerInner>
       </ContainerOuter>
     </footer>
   );
