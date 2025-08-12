@@ -5,8 +5,16 @@ import {
   InstagramIcon,
   GitHubIcon,
   LinkedInIcon,
+  MailIcon,
 } from "@/components/ui/Icon";
 import portraitImage from "@/assets/images/portrait.jpg";
+
+import {
+  ABOUT_PAGE_META,
+  ABOUT_PARAGRAPHS,
+  ABOUT_SOCIAL_LINKS,
+  type AboutSocialLink,
+} from "@/constants/about";
 
 function SocialLink({
   className,
@@ -34,16 +42,15 @@ function SocialLink({
   );
 }
 
-function MailIcon(props: React.ComponentPropsWithoutRef<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-      />
-    </svg>
-  );
-}
+
+
+const ICON_MAP: Record<AboutSocialLink["icon"], React.ComponentType<{ className?: string }>> = {
+  x: XIcon,
+  instagram: InstagramIcon,
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+  mail: MailIcon
+};
 
 export default function AboutPage() {
   return (
@@ -60,58 +67,39 @@ export default function AboutPage() {
               />
             </div>
           </div>
+
           <div className="lg:order-first lg:row-span-2">
             <header className="max-w-2xl">
               <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-                Lorem Ipsum — Placeholder Headline
+                {ABOUT_PAGE_META.title}
               </h1>
               <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-                velit maximus, molestie est a, tempor magna. Cras convallis lacus
-                orci, tristique tincidunt magna consequat in.
+                {ABOUT_PAGE_META.intro}
               </p>
             </header>
+
             <div className="mt-16 sm:mt-20 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-              <p>
-                Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar
-                libero. Integer id bibendum diam. Sed consectetur, nisi in
-                facilisis fermentum, lacus quam convallis nulla, in facilisis
-                libero lacus in sapien.
-              </p>
-              <p>
-                Phasellus id sapien sit amet odio tincidunt porta. Donec et
-                tincidunt nunc, ut tincidunt orci. Mauris nec magna vitae neque
-                sagittis lacinia.
-              </p>
-              <p>
-                Fusce dignissim, sapien et elementum vehicula, magna quam
-                ultricies lorem, et vulputate odio nulla nec ligula. Nullam
-                venenatis massa vel enim pulvinar, nec fermentum libero
-                scelerisque.
-              </p>
+              {ABOUT_PARAGRAPHS.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </div>
+
           <div className="lg:pl-20">
             <ul role="list">
-              <SocialLink href="#" icon={XIcon}>
-                Follow on X
-              </SocialLink>
-              <SocialLink href="#" icon={InstagramIcon} className="mt-4">
-                Follow on Instagram
-              </SocialLink>
-              <SocialLink href="#" icon={GitHubIcon} className="mt-4">
-                Follow on GitHub
-              </SocialLink>
-              <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
-                Follow on LinkedIn
-              </SocialLink>
-              <SocialLink
-                href="mailto:placeholder@example.com"
-                icon={MailIcon}
-                className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
-              >
-                placeholder@example.com
-              </SocialLink>
+              {ABOUT_SOCIAL_LINKS.map((item, i) => {
+                const Icon = ICON_MAP[item.icon];
+                return (
+                  <SocialLink
+                    key={i}
+                    href={item.href}
+                    icon={Icon}
+                    className={clsx(i > 0 && !item.dividerBefore && "mt-4", item.dividerBefore && "mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40")}
+                  >
+                    {item.label}
+                  </SocialLink>
+                );
+              })}
             </ul>
           </div>
         </div>
