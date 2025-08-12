@@ -3,6 +3,11 @@ import { Container, Card, Button } from "@/components/ui";
 import SocialIcons from "@/components/blocks/SocialIcons";
 import { MailIcon, BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
 import clsx from "clsx";
+import logoAirbnb from  "@/assets/images/logos/airbnb.svg";
+import logoFacebook from '@/assets/images/logos/facebook.svg';
+import logoPlanetaria from '@/assets/images/logos/planetaria.svg';
+import logoStarbucks from '@/assets/images/logos/starbucks.svg';
+
 
 type Article = { slug: string; title: string; date: string; description: string; };
 const articles: Article[] = [
@@ -87,10 +92,10 @@ function RoleItem({ role }: { role: Role }) {
 
 function Resume() {
   const resume: Role[] = [
-    { company: "Planetaria", title: "CEO", start: "2019", end: { label: "Present", dateTime: new Date().getFullYear().toString() } },
-    { company: "Airbnb", title: "Product Designer", start: "2014", end: "2019" },
-    { company: "Facebook", title: "iOS Software Engineer", start: "2011", end: "2014" },
-    { company: "Starbucks", title: "Shift Supervisor", start: "2008", end: "2011" },
+    { logo: logoPlanetaria, company: "Planetaria", title: "CEO", start: "2019", end: { label: "Present", dateTime: new Date().getFullYear().toString() } },
+    { logo: logoAirbnb,    company: "Airbnb",     title: "Product Designer", start: "2014", end: "2019" },
+    { logo: logoFacebook,  company: "Facebook",   title: "iOS Software Engineer", start: "2011", end: "2014" },
+    { logo: logoStarbucks, company: "Starbucks",  title: "Shift Supervisor", start: "2008", end: "2011" },
   ];
 
   return (
