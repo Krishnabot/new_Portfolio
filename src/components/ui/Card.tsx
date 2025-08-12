@@ -1,38 +1,101 @@
-import { cn } from "@/lib/cn";
-import {
-  forwardRef,
-  type ElementType,
-  type ComponentPropsWithoutRef,
-  type ReactElement,
-} from "react";
+import { forwardRef, type ElementType } from "react";
+import { Link as RouterLink, type LinkProps as RouterLinkProps } from "react-router-dom";
+import { ChevronRightIcon } from "@/components/ui/Icon";
+import clsx from "clsx";
 
-type CardProps<C extends ElementType = "div"> = {
+
+
+type BaseProps<C extends ElementType> = Omit<React.ComponentPropsWithoutRef<C>, "as" | "className"> & {
   as?: C;
   className?: string;
-  children?: React.ReactNode;
-} & Omit<ComponentPropsWithoutRef<C>, "as" | "className">;
+};
 
-const CardInner = <C extends ElementType = "div">(
-  { as, className, children, ...props }: CardProps<C>,
-  ref: React.Ref<any>
-): ReactElement => {
-  const Comp = (as ?? "div") as ElementType;
+export function Card<C extends ElementType = "div">({
+  as,
+  className,
+  children,
+  ...props
+}: BaseProps<C>) {
+  const Component = (as ?? "div") as ElementType;
   return (
-    <Comp ref={ref} className={cn("rounded-lg border bg-white shadow-sm", className)} {...props}>
+    <Component className={clsx(className, "group relative flex flex-col items-start")} {...props}>
       {children}
-    </Comp>
+    </Component>
+  );
+}
+
+type CardLinkProps = RouterLinkProps & { children: React.ReactNode };
+Card.Link = function CardLink({ children, ...props }: CardLinkProps) {
+  return (
+    <>
+      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
+      <RouterLink {...props}>
+        <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
+        <span className="relative z-10">{children}</span>
+      </RouterLink>
+    </>
   );
 };
 
-export const Card = forwardRef(CardInner) as <
-  C extends ElementType = "div"
->(
-  p: CardProps<C> & { ref?: React.Ref<any> }
-) => ReactElement;
+type CardTitleProps<C extends ElementType = "h2"> = Omit<React.ComponentPropsWithoutRef<C>, "as"> & {
+  as?: C;
+  to?: string;
+};
+Card.Title = function CardTitle<C extends ElementType = "h2">({
+  as,
+  to,
+  children,
+  ...rest
+}: CardTitleProps<C>) {
+  const Component = (as ?? "h2") as ElementType;
+  return (
+    <Component className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100" {...rest}>
+      {to ? <Card.Link to={to}>{children}</Card.Link> : children}
+    </Component>
+  );
+};
 
-export function CardHeader(props: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className="p-6 border-b" {...props} />;
-}
-export function CardContent(props: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className="p-6" {...props} />;
-}
+Card.Description = function CardDescription({ children }: { children: React.ReactNode }) {
+  return <p className="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">{children}</p>;
+};
+
+Card.Cta = function CardCta({ children }: { children: React.ReactNode }) {
+  return (
+    <div aria-hidden="true" className="relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500">
+      {children}
+      <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
+    </div>
+  );
+};
+
+type EyebrowProps<C extends ElementType = "p"> = Omit<React.ComponentPropsWithoutRef<C>, "as"> & {
+  as?: C;
+  decorate?: boolean;
+  className?: string;
+};
+Card.Eyebrow = function CardEyebrow<C extends ElementType = "p">({
+  as,
+  decorate = false,
+  className,
+  children,
+  ...props
+}: EyebrowProps<C>) {
+  const Component = (as ?? "p") as ElementType;
+  return (
+    <Component
+      className={clsx(
+        className,
+        "relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500",
+        decorate && "pl-3.5"
+      )}
+      {...props}
+    >
+      {decorate && (
+        <span className="absolute inset-y-0 left-0 flex items-center" aria-hidden="true">
+          <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
+        </span>
+      )}
+      {children}
+    </Component>
+  );
+};
