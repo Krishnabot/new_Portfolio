@@ -47,84 +47,75 @@ function MailIcon(props: React.ComponentPropsWithoutRef<"svg">) {
 
 export default function AboutPage() {
   return (
-    <Container className="mt-16 sm:mt-32">
-      <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-        <div className="lg:pl-20">
-          <div className="max-w-xs px-2.5 lg:max-w-none">
-            <img
-              src={portraitImage}
-              alt=""
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
-            />
+    <section className="px-4 sm:px-6 lg:px-8 py-12">
+      <Container className="mt-16 sm:mt-32">
+        <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+          <div className="lg:pl-20">
+            <div className="max-w-xs px-2.5 lg:max-w-none">
+              <img
+                src={portraitImage}
+                alt=""
+                sizes="(min-width: 1024px) 32rem, 20rem"
+                className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+              />
+            </div>
+          </div>
+          <div className="lg:order-first lg:row-span-2">
+            <header className="max-w-2xl">
+              <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
+                Lorem Ipsum — Placeholder Headline
+              </h1>
+              <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
+                velit maximus, molestie est a, tempor magna. Cras convallis lacus
+                orci, tristique tincidunt magna consequat in.
+              </p>
+            </header>
+            <div className="mt-16 sm:mt-20 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
+              <p>
+                Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar
+                libero. Integer id bibendum diam. Sed consectetur, nisi in
+                facilisis fermentum, lacus quam convallis nulla, in facilisis
+                libero lacus in sapien.
+              </p>
+              <p>
+                Phasellus id sapien sit amet odio tincidunt porta. Donec et
+                tincidunt nunc, ut tincidunt orci. Mauris nec magna vitae neque
+                sagittis lacinia.
+              </p>
+              <p>
+                Fusce dignissim, sapien et elementum vehicula, magna quam
+                ultricies lorem, et vulputate odio nulla nec ligula. Nullam
+                venenatis massa vel enim pulvinar, nec fermentum libero
+                scelerisque.
+              </p>
+            </div>
+          </div>
+          <div className="lg:pl-20">
+            <ul role="list">
+              <SocialLink href="#" icon={XIcon}>
+                Follow on X
+              </SocialLink>
+              <SocialLink href="#" icon={InstagramIcon} className="mt-4">
+                Follow on Instagram
+              </SocialLink>
+              <SocialLink href="#" icon={GitHubIcon} className="mt-4">
+                Follow on GitHub
+              </SocialLink>
+              <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
+                Follow on LinkedIn
+              </SocialLink>
+              <SocialLink
+                href="mailto:placeholder@example.com"
+                icon={MailIcon}
+                className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
+              >
+                placeholder@example.com
+              </SocialLink>
+            </ul>
           </div>
         </div>
-
-        <div className="lg:order-first lg:row-span-2">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Lorem Ipsum — Placeholder Headline
-          </h1>
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-              velit maximus, molestie est a, tempor magna. Cras convallis lacus
-              orci, tristique tincidunt magna consequat in.
-            </p>
-            <p>
-              Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar
-              libero. Integer id bibendum diam. Sed consectetur, nisi in
-              facilisis fermentum, lacus quam convallis nulla, in facilisis
-              libero lacus in sapien.
-            </p>
-            <p>
-              Phasellus id sapien sit amet odio tincidunt porta. Donec et
-              tincidunt nunc, ut tincidunt orci. Mauris nec magna vitae neque
-              sagittis lacinia.
-            </p>
-            <p>
-              Fusce dignissim, sapien et elementum vehicula, magna quam
-              ultricies lorem, et vulputate odio nulla nec ligula. Nullam
-              venenatis massa vel enim pulvinar, nec fermentum libero
-              scelerisque.
-            </p>
-            <p>
-              Fusce dignissim, sapien et elementum vehicula, magna quam
-              ultricies lorem, et vulputate odio nulla nec ligula. Nullam
-              venenatis massa vel enim pulvinar, nec fermentum libero
-              scelerisque.
-            </p>
-            <p>
-              Fusce dignissim, sapien et elementum vehicula, magna quam
-              ultricies lorem, et vulputate odio nulla nec ligula. Nullam
-              venenatis massa vel enim pulvinar, nec fermentum libero
-              scelerisque.
-            </p>
-          </div>
-        </div>
-
-        <div className="lg:pl-20">
-          <ul role="list">
-            <SocialLink href="#" icon={XIcon}>
-              Follow on X
-            </SocialLink>
-            <SocialLink href="#" icon={InstagramIcon} className="mt-4">
-              Follow on Instagram
-            </SocialLink>
-            <SocialLink href="#" icon={GitHubIcon} className="mt-4">
-              Follow on GitHub
-            </SocialLink>
-            <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
-              Follow on LinkedIn
-            </SocialLink>
-            <SocialLink
-              href="mailto:placeholder@example.com"
-              icon={MailIcon}
-              className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
-            >
-              placeholder@example.com
-            </SocialLink>
-          </ul>
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 }
