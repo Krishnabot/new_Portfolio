@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { Container } from "@/components/ui";
-import { Card, CardContent, CardHeader } from "@/components/ui";
-import { Button } from "@/components/ui";
+import { Container, Card, Button } from "@/components/ui";
 import SocialIcons from "@/components/blocks/SocialIcons";
 import { MailIcon, BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
 import clsx from "clsx";
@@ -15,16 +13,12 @@ const articles: Article[] = [
 function ArticleCard({ article }: { article: Article }) {
   return (
     <Card as="article" className="overflow-hidden">
-      <CardHeader>
-        <Link to={`/articles/${article.slug}`} className="text-lg font-semibold text-zinc-900 hover:underline dark:text-zinc-100">
-          {article.title}
-        </Link>
-        <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{new Date(article.date).toLocaleDateString()}</div>
-      </CardHeader>
-      <CardContent>
-        <p className="text-zinc-600 dark:text-zinc-300">{article.description}</p>
-        <Button as="a" href={`/articles/${article.slug}`} className="mt-4">Read article</Button>
-      </CardContent>
+      <Card.Title to={`/articles/${article.slug}`}>{article.title}</Card.Title>
+      <Card.Eyebrow as="time" dateTime={article.date} decorate>
+        {new Date(article.date).toLocaleDateString()}
+      </Card.Eyebrow>
+      <Card.Description>{article.description}</Card.Description>
+      <Card.Cta>Read article</Card.Cta>
     </Card>
   );
 }
@@ -155,8 +149,8 @@ export default function HomePage() {
             Software designer, founder, and amateur astronaut.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Spencer, a software designer and entrepreneur based in New York City. I’m the founder and CEO
-            of Planetaria, where we develop technologies that empower regular people to explore space on their own terms.
+            I’m Krishna, a software designer and entrepreneur based in Osaka. I’m the founder and CEO
+            of XYZ, where we develop technologies that empower regular people to explore space on their own terms.
           </p>
           <div className="mt-6">
             <SocialIcons />
