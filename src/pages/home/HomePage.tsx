@@ -1,49 +1,12 @@
-import { Link } from "react-router-dom";
-import { Container, Card, Button } from "@/components/ui";
+import { Container, Button } from "@/components/ui";
 import SocialIcons from "@/components/blocks/SocialIcons";
-import { MailIcon, BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
+import { BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
 import clsx from "clsx";
 import { useAppSelector } from "@/app/hooks";
-import type { Role, Article } from "@/slices/homeSlice";
+import type { Role } from "@/slices/homeSlice";
 
-function ArticleCard({ article }: { article: Article }) {
-  return (
-    <Card as="article" className="overflow-hidden">
-      <Card.Title to={`/articles/${article.slug}`}>{article.title}</Card.Title>
-      <Card.Eyebrow as="time" dateTime={article.date} decorate>
-        {new Date(article.date).toLocaleDateString()}
-      </Card.Eyebrow>
-      <Card.Description>{article.description}</Card.Description>
-      <Card.Cta>Read article</Card.Cta>
-    </Card>
-  );
-}
-
-function Newsletter() {
-  return (
-    <form action="#" className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
-      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <MailIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Stay up to date</span>
-      </h2>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Get notified when I publish something new, and unsubscribe at any time.
-      </p>
-      <div className="mt-6 flex items-center">
-        <span className="flex min-w-0 flex-auto p-px">
-          <input
-            type="email"
-            placeholder="Email address"
-            aria-label="Email address"
-            required
-            className="w-full appearance-none rounded-md bg-white px-3 py-2 shadow-md shadow-zinc-800/5 outline outline-zinc-900/10 placeholder:text-zinc-400 focus:ring-4 focus:ring-teal-500/10 focus:outline-teal-500 sm:text-sm dark:bg-zinc-700/15 dark:text-zinc-200 dark:outline-zinc-700 dark:placeholder:text-zinc-500 dark:focus:ring-teal-400/10 dark:focus:outline-teal-400"
-          />
-        </span>
-        <Button type="submit" className="ml-4 flex-none">Join</Button>
-      </div>
-    </form>
-  );
-}
+import ArticlePreview from "./ArticlePreview";
+import Newsletter from "./Newsletter";
 
 function RoleItem({ role }: { role: Role }) {
   const startLabel = typeof role.start === "string" ? role.start : role.start.label;
@@ -81,7 +44,9 @@ function Resume() {
         <span className="ml-3">Work</span>
       </h2>
       <ol className="mt-6 space-y-4">
-        {resume.map((role, i) => <RoleItem key={i} role={role} />)}
+        {resume.map((role, i) => (
+          <RoleItem key={i} role={role} />
+        ))}
       </ol>
       <Button as="a" href="#" variant="secondary" className="group mt-6 w-full">
         Download CV
@@ -124,9 +89,7 @@ export default function HomePage() {
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
             {introTitle}
           </h1>
-          <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            {introBody}
-          </p>
+          <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">{introBody}</p>
           <div className="mt-6">
             <SocialIcons />
           </div>
@@ -139,7 +102,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             {articles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
+              <ArticlePreview key={article.slug} article={article} />
             ))}
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
