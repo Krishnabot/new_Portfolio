@@ -20,6 +20,9 @@
     }
 }
 
+textarea {
+    @apply h-32 resize-none;
+}
 .container {
     margin-inline: auto;
     padding-inline: 1rem;
