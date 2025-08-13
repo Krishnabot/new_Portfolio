@@ -3,17 +3,8 @@ import { Container, Card, Button } from "@/components/ui";
 import SocialIcons from "@/components/blocks/SocialIcons";
 import { MailIcon, BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
 import clsx from "clsx";
-import logoAirbnb from  "@/assets/images/logos/airbnb.svg";
-import logoFacebook from '@/assets/images/logos/facebook.svg';
-import logoPlanetaria from '@/assets/images/logos/planetaria.svg';
-import logoStarbucks from '@/assets/images/logos/starbucks.svg';
-
-
-type Article = { slug: string; title: string; date: string; description: string; };
-const articles: Article[] = [
-  { slug: "hello-world", title: "Hello World", date: "2025-08-01", description: "Kickoff post for the new site." },
-  { slug: "second", title: "Second Post", date: "2025-08-05", description: "Thoughts on building with Vite + TS." },
-];
+import { useAppSelector } from "@/app/hooks";
+import type { Role, Article } from "@/slices/homeSlice";
 
 function ArticleCard({ article }: { article: Article }) {
   return (
@@ -54,14 +45,6 @@ function Newsletter() {
   );
 }
 
-type Role = {
-  company: string;
-  title: string;
-  logo?: string; 
-  start: string | { label: string; dateTime: string };
-  end: string | { label: string; dateTime: string };
-};
-
 function RoleItem({ role }: { role: Role }) {
   const startLabel = typeof role.start === "string" ? role.start : role.start.label;
   const startDate = typeof role.start === "string" ? role.start : role.start.dateTime;
@@ -71,7 +54,6 @@ function RoleItem({ role }: { role: Role }) {
   return (
     <li className="flex gap-4">
       <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-        {}
         <img src={role.logo ?? "https://placehold.co/40"} alt="" className="h-7 w-7" />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
@@ -91,13 +73,7 @@ function RoleItem({ role }: { role: Role }) {
 }
 
 function Resume() {
-  const resume: Role[] = [
-    { logo: logoPlanetaria, company: "Planetaria", title: "CEO", start: "2019", end: { label: "Present", dateTime: new Date().getFullYear().toString() } },
-    { logo: logoAirbnb,    company: "Airbnb",     title: "Product Designer", start: "2014", end: "2019" },
-    { logo: logoFacebook,  company: "Facebook",   title: "iOS Software Engineer", start: "2011", end: "2014" },
-    { logo: logoStarbucks, company: "Starbucks",  title: "Shift Supervisor", start: "2008", end: "2011" },
-  ];
-
+  const resume = useAppSelector((s) => s.home.resume);
   return (
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -111,25 +87,18 @@ function Resume() {
         Download CV
         <ArrowDownIcon className="ml-2 h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
-
     </div>
   );
 }
 
 function Photos() {
+  const photos = useAppSelector((s) => s.home.photos);
   const rotations = ["rotate-2", "-rotate-2", "rotate-2", "rotate-2", "-rotate-2"];
-  const images = [
-    "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=600",
-    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=600",
-    "https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=600",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=600",
-  ];
 
   return (
     <div className="mt-16 sm:mt-20">
       <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
-        {images.map((src, i) => (
+        {photos.map((src, i) => (
           <div
             key={src}
             className={clsx(
@@ -146,16 +115,17 @@ function Photos() {
 }
 
 export default function HomePage() {
+  const { introTitle, introBody, articles } = useAppSelector((s) => s.home);
+
   return (
     <>
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Software designer, founder, and amateur astronaut.
+            {introTitle}
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Krishna, a software designer and entrepreneur based in Osaka. I’m the founder and CEO
-            of XYZ, where we develop technologies that empower regular people to explore space on their own terms.
+            {introBody}
           </p>
           <div className="mt-6">
             <SocialIcons />
