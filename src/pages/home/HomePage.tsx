@@ -1,12 +1,11 @@
 import { Container, Button } from "@/components/ui";
 import SocialIcons from "@/components/blocks/SocialIcons";
 import { BriefcaseIcon, ArrowDownIcon } from "@/components/ui/Icon";
-import clsx from "clsx";
 import { useAppSelector } from "@/app/hooks";
 import type { Role } from "@/slices/homeSlice";
-
 import ArticlePreview from "./ArticlePreview";
 import Newsletter from "./Newsletter";
+import PhotoBanner from "./PhotoBanner";
 
 function RoleItem({ role }: { role: Role }) {
   const startLabel = typeof role.start === "string" ? role.start : role.start.label;
@@ -56,29 +55,6 @@ function Resume() {
   );
 }
 
-function Photos() {
-  const photos = useAppSelector((s) => s.home.photos);
-  const rotations = ["rotate-2", "-rotate-2", "rotate-2", "rotate-2", "-rotate-2"];
-
-  return (
-    <div className="mt-16 sm:mt-20">
-      <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
-        {photos.map((src, i) => (
-          <div
-            key={src}
-            className={clsx(
-              "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800",
-              rotations[i % rotations.length]
-            )}
-          >
-            <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function HomePage() {
   const { introTitle, introBody, articles } = useAppSelector((s) => s.home);
 
@@ -96,7 +72,7 @@ export default function HomePage() {
         </div>
       </Container>
 
-      <Photos />
+      <PhotoBanner />
 
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
