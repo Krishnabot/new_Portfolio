@@ -62,7 +62,7 @@ export default function PhotoBanner() {
               "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 sm:w-72 sm:rounded-2xl dark:bg-zinc-800",
               rotations[i % rotations.length]
             )}
-            onClick={() => {s
+            onClick={() => {
               if (ignoreClick) return;
               const midPoint = displayPhotos.length / 2;
               if (i < midPoint) {
