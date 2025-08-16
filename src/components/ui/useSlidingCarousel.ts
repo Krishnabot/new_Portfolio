@@ -6,6 +6,7 @@ type Options = {
   enabled?: boolean;            
   durationMs?: number;          
   easing?: string;             
+  microSmooth?: boolean;    
   onAfterShift: (dir: ShiftDirection) => void; 
 };
 
@@ -13,6 +14,7 @@ export function useSlidingCarousel({
   enabled = true,
   durationMs = 280,
   easing = "cubic-bezier(0.22, 1, 0.36, 1)",
+  microSmooth = true,
   onAfterShift,
 }: Options) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -36,16 +38,13 @@ export function useSlidingCarousel({
 
   useLayoutEffect(() => {
     measure();
-    const handle = () => measure();
-    window.addEventListener("resize", handle);
-    return () => window.removeEventListener("resize", handle);
+    const onResize = () => measure();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [measure]);
 
   const animateLeft = useCallback(() => {
-    if (!enabled) {
-      onAfterShift("left");
-      return;
-    }
+    if (!enabled) { onAfterShift("left"); return; }
     if (animating || !delta) return;
     directionRef.current = "left";
     setAnimating(true);
@@ -53,10 +52,7 @@ export function useSlidingCarousel({
   }, [animating, delta, enabled, onAfterShift]);
 
   const animateRight = useCallback(() => {
-    if (!enabled) {
-      onAfterShift("right");
-      return;
-    }
+    if (!enabled) { onAfterShift("right"); return; }
     if (animating || !delta) return;
     directionRef.current = "right";
     setAnimating(true);
@@ -72,8 +68,15 @@ export function useSlidingCarousel({
 
     directionRef.current = null;
     setAnimating(false);
-    setTx(0); 
-  }, [enabled, onAfterShift]);
+
+    if (microSmooth) {
+      requestAnimationFrame(() => {
+        setTx(0);
+      });
+    } else {
+      setTx(0);
+    }
+  }, [enabled, microSmooth, onAfterShift]);
 
   const animStyle: React.CSSProperties = enabled
     ? {
