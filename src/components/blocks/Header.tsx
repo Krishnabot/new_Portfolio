@@ -9,7 +9,7 @@ import DesktopNavigation from "@/components/blocks/header/DesktopNavigation";
 import MobileNavigation from "@/components/blocks/header/MobileNavigation";
 import { clamp } from "@/utils/clamp";
 
-import avatarImage from "@/assets/react.svg";
+import avatarImage from "@/assets/images/anime.jpeg";
 
 export default function Header() {
   const { pathname } = useLocation();

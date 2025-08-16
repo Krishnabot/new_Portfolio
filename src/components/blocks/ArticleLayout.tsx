@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Container } from "@/components/ui/Container";
 import { Prose } from "@/components/ui/Prose";
+import { formatDate } from "@/lib/formatDate";
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
@@ -17,7 +18,7 @@ function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   );
 }
 
-function formatDate(iso: string) {
+function fmt(iso: string) {
   try {
     return new Date(iso).toLocaleDateString();
   } catch {
@@ -25,17 +26,20 @@ function formatDate(iso: string) {
   }
 }
 
-type ArticleLike = {
+export type ArticleHeader = {
   title: string;
-  date: string; 
+  date: string;
+  description?: string;
 };
 
-export function ArticleCard({
+export default function ArticleLayout({
   article,
   children,
+  showBack = true,
 }: {
-  article: ArticleLike;
+  article: ArticleHeader;
   children: React.ReactNode;
+  showBack?: boolean;
 }) {
   const navigate = useNavigate();
   const [canGoBack, setCanGoBack] = useState(false);
@@ -48,7 +52,7 @@ export function ArticleCard({
     <Container className="mt-16 lg:mt-32">
       <div className="xl:relative">
         <div className="mx-auto max-w-2xl">
-          {canGoBack && (
+          {showBack && canGoBack && (
             <button
               type="button"
               onClick={() => navigate(-1)}
@@ -73,6 +77,10 @@ export function ArticleCard({
                 <span className="ml-3">{formatDate(article.date)}</span>
               </time>
             </header>
+
+            {article.description && (
+              <p className="mt-4 text-zinc-600 dark:text-zinc-400">{article.description}</p>
+            )}
 
             <Prose className="mt-8" data-mdx-content>
               {children}

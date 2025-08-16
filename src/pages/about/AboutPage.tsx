@@ -63,7 +63,7 @@ export default function AboutPage() {
                 src={portraitImage}
                 alt=""
                 sizes="(min-width: 1024px) 32rem, 20rem"
-                className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+                className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800 hover:scale-105 transition-transform duration-300 hover:rotate-0"
               />
             </div>
           </div>
