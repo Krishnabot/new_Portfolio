@@ -1,7 +1,7 @@
 export const ABOUT_PAGE_META = {
-  title: "Lorem Ipsum — Placeholder Headline",
+  title: "Krishna Acharya — Full-Stack Developer",
   intro:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at velit maximus, molestie est a, tempor magna. Cras convallis lacus orci, tristique tincidunt magna consequat in.",
+    "I’m Krishna, a full-stack developer based in Osaka. I enjoy building scalable apps, experimenting with design, and contributing to open-source.",
 };
 
 export const ABOUT_PARAGRAPHS: string[] = [
@@ -18,13 +18,29 @@ export type AboutSocialLink = {
 };
 
 export const ABOUT_SOCIAL_LINKS: AboutSocialLink[] = [
-  { href: "#", label: "Follow on X", icon: "x" },
-  { href: "#", label: "Follow on Instagram", icon: "instagram" },
-  { href: "#", label: "Follow on GitHub", icon: "github" },
-  { href: "#", label: "Follow on LinkedIn", icon: "linkedin" },
   {
-    href: "mailto:placeholder@example.com",
-    label: "placeholder@example.com",
+    href: "https://x.com/metamorphossed",
+    label: "Connect on X",
+    icon: "x",
+  },
+  {
+    href: "https://www.instagram.com/eastern_anarchy/",
+    label: "Connect on Instagram",
+    icon: "instagram",
+  },
+  {
+    href: "https://github.com/Krishnabot",
+    label: "Connect on  GitHub",
+    icon: "github",
+  },
+  {
+    href: "https://www.linkedin.com/in/krishnabot/",
+    label: "Connect on LinkedIn",
+    icon: "linkedin",
+  },
+  {
+    href: "mailto:librarysimyparadise@email.com",
+    label: "Email me",
     icon: "mail",
     dividerBefore: true,
   },
