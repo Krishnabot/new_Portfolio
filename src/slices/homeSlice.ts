@@ -6,6 +6,10 @@ import postgresImage from "@/assets/images/photobanner_images/postgresql.png";
 import reactImage from "@/assets/images/photobanner_images/react.jpg";
 import pythonImage from "@/assets/images/photobanner_images/python.jpg";
 import unityImage from "@/assets/images/photobanner_images/unity.png";
+import planetariaLogo from "@/assets/images/logos/planetaria.svg";
+import airbnbLogo from "@/assets/images/logos/airbnb.svg";
+import facebookLogo from "@/assets/images/logos/facebook.svg";
+import starbucksLogo from "@/assets/images/logos/starbucks.svg";
 
 export type Role = {
   company: string;
@@ -32,28 +36,28 @@ const initialState: HomeState = {
 
   resume: [
     {
-      logo: "/src/assets/images/logos/planetaria.svg",
+      logo: planetariaLogo,
       company: HOME_LABELS.resume.planetariaCompany,
       title: HOME_LABELS.resume.planetariaTitle,
       start: "2019",
       end: { label: HOME_LABELS.resume.presentLabel, dateTime: currentYear },
     },
     {
-      logo: "/src/assets/images/logos/airbnb.svg",
+      logo: airbnbLogo,
       company: HOME_LABELS.resume.airbnbCompany,
       title: HOME_LABELS.resume.airbnbTitle,
       start: "2014",
       end: "2019",
     },
     {
-      logo: "/src/assets/images/logos/facebook.svg",
+      logo: facebookLogo,
       company: HOME_LABELS.resume.facebookCompany,
       title: HOME_LABELS.resume.facebookTitle,
       start: "2011",
       end: "2014",
     },
     {
-      logo: "/src/assets/images/logos/starbucks.svg",
+      logo: starbucksLogo,
       company: HOME_LABELS.resume.starbucksCompany,
       title: HOME_LABELS.resume.starbucksTitle,
       start: "2008",
